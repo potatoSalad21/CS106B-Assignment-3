@@ -6,43 +6,47 @@
 #include "StanfordCPPLib/map.h"
 using namespace std;
 
-Map<char, Set<string>> readCodons();
+Map<char, Set<string> > loadCodonMap();
 string getProteins(Map<char, Set<string>>&);
 bool validProt(string&, Map<char, Set<string>>&);
-void listAllRNAStrandsFor(Map<char, Set<string>>&, string, string);
+void listAllRNAStrandsFor(string, Map<char, Set<string> >&, string);
 
 int main() {
-    Map<char, Set<string>> codons = readCodons();
+    Map<char, Set<string>> codons = loadCodonMap();
     string protein = getProteins(codons);
-    listAllRNAStrandsFor(codons, protein, "");
+    listAllRNAStrandsFor(protein, codons, "");
 
     return 0;
 }
 
 // recursively generate all possible valid sequences
-void listAllRNAStrandsFor(Map<char, Set<string>> &codonMap, string protein, string currStrand) {
+void listAllRNAStrandsFor(string protein, Map<char, Set<string>> &codonMap, string currStrand) {
     if (protein == "") { // base-case
         cout << currStrand << endl;
         return;
     }
 
     for (string codon : codonMap[protein[0]]) {
-        listAllRNAStrandsFor(codonMap, protein.substr(1), currStrand + codon);
+        listAllRNAStrandsFor(protein.substr(1), codonMap, currStrand + codon);
     }
 }
 
-// this function reads the file and stores the codons in a hashmap
-Map<char, Set<string>> readCodons() {
-    ifstream data("codons.txt");
-    Map<char, Set<string>> codons;
+Map<char, Set<string> > loadCodonMap() {
+    ifstream input("codons.txt");
+    Map<char, Set<string> > result;
 
+    /* The current codon / protein combination. */
     string codon;
-    char prot;
-    while (data >> codon >> prot) {
-        codons[prot] += codon;
+    char protein;
+
+    /* Continuously pull data from the file until all data has been
+     * read.
+     */
+    while (input >> codon >> protein) {
+        result[protein] += codon;
     }
 
-    return codons;
+    return result;
 }
 
 // get valid user input

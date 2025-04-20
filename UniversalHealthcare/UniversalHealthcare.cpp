@@ -1,23 +1,10 @@
 #include <iostream>
-#include <vector>
 #include "StanfordCPPLib/console.h"
+#include "StanfordCPPLib/vector.h"
 #include "StanfordCPPLib/set.h"
 using namespace std;
 
-bool canOfferUniversalCoverage(Set<string>& cities,
-                               vector< Set<string> >& locations,
-                               int numHospitals,
-                               vector< Set<string> >& result);
-
-int main() {
-
-    return 0;
-}
-
-/* Function: canOfferUniversalCoverage(Set<string>& cities,
- *                                     Vector< Set<string> >& locations,
- *                                     int numHospitals,
- *                                     Vector< Set<string> >& result);
+/*
  * Usage: if (canOfferUniversalCoverage(cities, locations, 4, result)
  * ==================================================================
  * Given a set of cities, a list of what cities various hospitals can
@@ -27,11 +14,34 @@ int main() {
  * result parameter.
  */
 bool canOfferUniversalCoverage(Set<string>& cities,
-                               vector< Set<string> >& locations,
+                               Vector< Set<string> >& locations,
                                int numHospitals,
-                               vector< Set<string> >& result) {
+                               Vector< Set<string> >& result);
 
-    //
+int main() {
+    // need to test here
+
+    return 0;
+}
+
+bool canOfferUniversalCoverage(Set<string>& cities, Vector< Set<string> >& locations, int numHospitals, Vector< Set<string> >& result) {
+    if (cities.isEmpty()) return true;
+    if (numHospitals == 0) return false;
+
+    for (Set<string> loc : locations) {
+        Set<string> citiesCopy = cities;
+        for (string city : loc) {
+            citiesCopy.remove(city);
+        }
+
+        result.add(loc);
+        if (canOfferUniversalCoverage(citiesCopy, locations, numHospitals - 1, result)) {
+            return true;
+        }
+
+        result.remove(result.size() - 1);
+    }
+
     return false;
 }
 

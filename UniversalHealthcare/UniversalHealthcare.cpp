@@ -1,4 +1,3 @@
-#include <iostream>
 #include "StanfordCPPLib/console.h"
 #include "StanfordCPPLib/vector.h"
 #include "StanfordCPPLib/set.h"
@@ -19,12 +18,13 @@ bool canOfferUniversalCoverage(Set<string>& cities,
                                Vector< Set<string> >& result);
 
 int main() {
-    // need to test here
+    // test here
 
     return 0;
 }
 
 bool canOfferUniversalCoverage(Set<string>& cities, Vector< Set<string> >& locations, int numHospitals, Vector< Set<string> >& result) {
+    // base cases
     if (cities.isEmpty()) return true;
     if (numHospitals == 0) return false;
 

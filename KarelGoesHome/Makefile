@@ -1,7 +1,7 @@
 PROGRAM = KarelGoesHome
 OBJECTS = KarelGoesHome.o
 
-CPPOPTIONS = -IStanfordCPPLib -fvisibility-inlines-hidden
+CPPOPTIONS = -IStanfordCPPLib -fvisibility-inlines-hidden -O3
 LDOPTIONS = -L.
 LIB = -lStanfordCPPLib
 

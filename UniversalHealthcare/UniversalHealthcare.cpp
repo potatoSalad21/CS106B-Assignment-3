@@ -20,6 +20,13 @@ bool canOfferUniversalCoverage(Set<string>& cities,
 int main() {
     // test here
 
+    Set<string> set;
+    set.add("Ad");
+    set.add("Ab");
+    set.add("test");
+
+    cout << set.toString() << endl;
+
     return 0;
 }
 
